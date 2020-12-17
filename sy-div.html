@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水印</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .sy-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .sy {
+    display: inline-block;
+    transform: rotate(-30deg);
+    user-select: none;
+    pointer-events: none;
+    color: #eee;
+    width: 200px;
+    height: 100px;
+    text-align: right;
+    line-height: 100px;
+  }
+</style>
+
+<body>
+
+  <div class="sy-container"></div>
+
+  <div class="test">
+    <input type="text" id="name">
+  </div>
+  <button id="add">添加高度</button>
+  <script>
+
+    const sy = document.createElement('span')
+    sy.innerText = '水印'
+    sy.className = 'sy'
+
+    const fg = document.createDocumentFragment();
+    
+    const clientH = document.documentElement.clientHeight
+    const clinetW = document.documentElement.clientWidth
+
+    const syNumber = (clientH*clinetW)/(100*200)
+
+
+    for (let i = 0; i < syNumber; i++) {
+      fg.appendChild(sy.cloneNode(true))
+    }
+
+    document.querySelector('.sy-container').appendChild(fg)
+
+    const addBtn = document.querySelector('#add');
+
+    addBtn.addEventListener('click', () => {
+      console.log(111);
+    })
+
+
+
+  </script>
+
+</body>
+
+</html>

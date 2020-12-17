@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水印</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .sy-container {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      pointer-events: none;
+      background-repeat: repeat;
+    }
+  </style>
+</head>
+
+<body>
+  <button>add</button>
+  <div class="sy-container"></div>
+
+  <script>
+
+    const syC = document.createElement('div')
+
+    function setSF() {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      const angle = -30
+      canvas.width = 200
+      canvas.height = 100
+      ctx.clearRect(0, 0, 200, 100)
+      ctx.fillStyle = "#000"
+      ctx.globalAlpha = 0.1
+      ctx.rotate(Math.PI / 180 * angle)
+      ctx.font = '18px yahei'
+      ctx.strokeText('水印', 30, 90)
+
+      const base64 = canvas.toDataURL()
+
+      syC.setAttribute('style', `position: fixed;height: 100%;width: 100%;box-sizing: border-box;overflow: hidden;pointer-events: none;background-repeat: repeat;background: url(${base64})`)
+
+    }
+
+    setSF();
+
+    document.body.appendChild(syC)
+
+    const observerConfig = { attributes: true, childList: true, subtree: true }
+
+    const observer = new MutationObserver(setSF)
+
+    observer.observe(syC, observerConfig)
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
